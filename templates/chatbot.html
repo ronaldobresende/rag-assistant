@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Chatbox</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+    <div class="container">
+        <div class="chatbox">
+            <header class="cabecalho container">
+                <img src="{{ url_for('static', filename='img/logo-chatbot.svg') }}" alt="Logo Chatbot">
+                <div class="cabecalho__acoes">
+                    
+                </div>
+           </header> 
+
+            <div class="contexto-prompt">
+                <p>Insira seu prompt de engenharia aqui...</p>
+            </div>
+
+            <section class="chat container" id="chat">
+                <p class="chat__bolha chat__bolha--bot">
+                    Olá! Eu sou seu assistente pessoal ~<br/><br/>
+                    Como posso te ajudar?
+                </p>
+            </section>
+
+            <div class="entrada-mensagem">
+                <input type="text" id="input" placeholder="Digite sua mensagem...">
+                <button id="botao-enviar">Enviar</button>
+            </div>
+        </div>
+
+        <div class="menu-lateral">
+            <h2>Modelo</h2>
+            <select id="modelo">
+                <option value="modelo1">Modelo 1</option>
+                <option value="modelo2">Modelo 2</option>
+                <option value="modelo3">Modelo 3</option>
+            </select>
+
+            <h2>Temperatura</h2>
+            <input type="range" id="temperatura" min="0" max="1" step="0.1" value="0.5">
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>

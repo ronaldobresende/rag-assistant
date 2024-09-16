@@ -1,0 +1,7 @@
+langchain-openai
+python-dotenv
+langchain-core
+weaviate-client
+Flask
+flask-cors
+langchain

@@ -1,0 +1,51 @@
+
+## Dados Garantias
+
+**Nome do Sistema:** Garantidos Soy Yo
+
+**Slogan:** "La Garantia Soy Yo"
+
+**Descrição do Sistema:** Sistema que atua no ramo de finanças, sistema bancário no Brasil. Tem como missão cuidar do arrasto e da manutenção de garantias no contexto de renegociações de dívidas de pessoas jurídicas.
+
+## Garantias
+
+1. **Garantias reais:** São bens tangíveis oferecidos como garantia. Esses bens ficam vinculados à dívida e podem ser executados em caso de inadimplência.
+   - Imóveis (código 40)
+   - Veículos (código 50)
+   - Máquinas e equipamentos (código 52)
+   - Recebíveis de cartão (código 666)
+   - Duplicatas (código 320)
+ 
+2. **Garantias fidejussórias: ** Garantias fidejussórias são formas de garantias pessoais em transações financeiras, onde uma pessoa se compromete a assumir a responsabilidade pelo cumprimento de uma obrigação caso o devedor principal não o faça.
+   - Devedor solidário (código 800), também conhecido como DSO
+
+3. **Garantias pessoais
+	- Cheques (código 318)
+	
+4. **Garantia Clean
+	- Clean (código 9). Código usado para indicar que um contrato não tem nenhuma garantia real, pessoal ou fidejussórias. 
+
+## Políticas Garantidos Soy Yo
+
+1. **Regra de contrato com Devedor solidário:**
+	- Um contrato deve ter no mínimo um devedor solidário, ou seja, uma garantia do tipo 800
+
+2. **Validação de garantias:**    
+   - Veículos (código 50): deve ter no máximo 10 anos contados do ano de fabricação até o ano atual. A placa deve ter o formato de letras e números, com tamanho mínimo de 6 caracteres e máximo de 9 caracteres
+   - Devedores solidários (código 302): devem ser pessoas físicas ou jurídicas, maiores de 18 anos e vivas, no caso de pessoa física, e empresa ativa no caso de jurídicas. Não são aceitos estrangeiros
+	
+3. **Arrasto de garantias:**    
+   - Somente as garantias com código 800, 666, 50, 52 e 320 são arrastadas de um contrato origem para um novo contrato 
+   
+4. **Garantia principal:**
+	- Quando vários contratos são renegociados, seus contratos são agrupados e suas garantias arrastadas. É definida então uma garantia como principal. Tendo uma garantia real, será sempre ela a prioridade, sendo a de maior valor.
+		
+5. **Contrato Clean:**
+	- Se um contrato tiver somente uma garantia clean, código código 9, não é considerado válido. Deve ter no mínimo mais uma garantia de outro tipo.
+
+6. **Cheques:**
+	- Garantia de cheques do tipo 318 está sendo descontinuadas, não é considerada válida.
+
+	
+	
+			
