@@ -2,10 +2,10 @@ from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from langchain.chains.conversation.memory import ConversationBufferMemory
 from langchain.chains import LLMChain
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder, PromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
 import os
-from utils.weaviate_utils import get_context
+from data.ingestors.weaviate_setup import get_context
 
 load_dotenv()
 
@@ -47,7 +47,8 @@ llm_chain = LLMChain(
 )
     
 def chat_assistant(question):
-    resposta = llm_chain.run(question=question)
+    combined_input = f"{context}\n{question}"
+    resposta = llm_chain.run(question=combined_input)
     return resposta
 
 

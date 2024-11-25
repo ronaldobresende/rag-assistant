@@ -1,9 +1,8 @@
 import weaviate
 import sys
 from utils.file_utils import load_file
-from dotenv import load_dotenv
 
-WEAVIATE_URL="http://localhost:8080/"
+WEAVIATE_URL = "http://localhost:8080/"
 
 # Configura o cliente Weaviate
 client = weaviate.Client(
@@ -42,7 +41,6 @@ def obtem_id_do_objeto():
         return None
     return documents[0]['_additional']['id']    
 
-
 # Verifica se a classe já existe
 existing_classes = client.schema.get()['classes']
 class_names = [cls['class'] for cls in existing_classes]
@@ -72,10 +70,10 @@ weaviate_class = {
 client.schema.create_class(weaviate_class)
 
 # Adiciona um documento de exemplo ao Weaviate
-contexto = load_file("dados/garantias_v2.txt")
+contexto = load_file("data/ingestors/garantias_v2.txt")
 data_object = {
     "title": "garantias",
-    "content": contexto
+    "content": contexto,
 }
 
 # Atualiza o documento se ele já existir, caso contrário, cria um novo
