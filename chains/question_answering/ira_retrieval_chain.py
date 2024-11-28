@@ -34,7 +34,7 @@ class IraRetrievalChain(Runnable[Input, Output]):
         if bank_check_result != input:
             return {"answer": bank_check_result}
         
-        question = detect_and_preserve_pii(input)
+        question = detect_agit nd_preserve_pii(input)
 
         prompt = prompt_garantias
      
