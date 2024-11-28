@@ -24,8 +24,8 @@
 
 #     return response
 from embeddings.retrievers.weaviate_retriever import WeaviateRetriever
-from chains.conversational.ira_conversational_retrieval_chain import IraRetrievalChain
-# #from chains.question_answering.ira_retrieval_chain import IraRetrievalChain
+# #ffrom chains.conversational.ira_conversational_retrieval_chain import IraRetrievalChain
+from chains.question_answering.ira_retrieval_chain import IraRetrievalChain
 # from chains.question_answering.ira_retrieval_qa import IraRetrievalChain
 from memories.chat_history import get_chat_conversation_history_memory 
 from llms.open_ai_client import OpenAiClient
@@ -42,4 +42,4 @@ class AVIChainAdaptor:
 
     def invoke(self, user_input: str):
         response = self.ira_chain.invoke(user_input)
-        return response
+        return response.get("answer")

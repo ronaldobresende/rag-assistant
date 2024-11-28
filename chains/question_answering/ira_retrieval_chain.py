@@ -9,42 +9,54 @@ from langchain_core.retrievers import BaseRetriever
 from data.preprocessors.guardrails import detect_and_preserve_pii, check_bank_name
 from prompts.document_prompt import document_prompt
 from prompts.prompt_garantias import prompt_garantias
+from langchain.chains.conversation.memory import ConversationBufferMemory
+from langchain.callbacks.tracers import ConsoleCallbackHandler
+
 
 class IraRetrievalChain(Runnable[Input, Output]):
     def __init__(self, 
         llm: BaseLanguageModel, 
-        retriever: BaseRetriever
+        retriever: BaseRetriever,
+        memory: ConversationBufferMemory
     ) -> None:
         self.__llm = llm
         self.__retriever = retriever
+        self.__memory = memory
 
     def invoke(
         self, 
         input: Input, 
         config: Optional[RunnableConfig] = None
     ) -> Output:
+                 
+        bank_check_result = check_bank_name(input)
         
-        prompt = prompt_garantias
+        if bank_check_result != input:
+            return {"answer": bank_check_result}
+        
+        question = detect_and_preserve_pii(input)
 
+        prompt = prompt_garantias
+     
         combine_docs_chain = create_stuff_documents_chain(
             llm=self.__llm,
             prompt=prompt,
             document_prompt=document_prompt,
             document_variable_name="context"
-        )
 
+        )
+ 
         chain = create_retrieval_chain(
             retriever=self.__retriever,
             combine_docs_chain=combine_docs_chain
         )
+ 
+        chat_history = self.__memory.load_memory_variables({})["chat_history"]
 
-        question = detect_and_preserve_pii(input)
-        bank_check_result = check_bank_name(question)
-
-        if bank_check_result != question:
-            return bank_check_result
-
-        response = chain.invoke({"input": question})
-        answer = response.get("answer")
-
-        return answer
+        # Combinar histórico com a nova pergunta
+        combined_input = f"{chat_history}\nUsuário: {question}"
+     
+        response = chain.invoke({"input": combined_input}, config={'callbacks': [ConsoleCallbackHandler()]})
+        self.__memory.save_context({"input": question}, {"output": response.get("answer")})
+   
+        return response
