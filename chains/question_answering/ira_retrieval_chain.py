@@ -87,9 +87,16 @@ class IraRetrievalChain(Runnable[Input, Output]):
         Returns:
             Runnable: A cadeia de recuperação criada.
         """
+
+        prompt=prompt_garantias
+
+        chat_history = self.format_chat_history()
+
+        partial_prompt = prompt.partial(chat_history=chat_history)
+
         combine_docs_chain = create_stuff_documents_chain(
             llm=self.__llm,
-            prompt=prompt_garantias,
+            prompt=partial_prompt,
             document_prompt=document_prompt,
             document_variable_name="context"
         )
@@ -131,12 +138,9 @@ class IraRetrievalChain(Runnable[Input, Output]):
             return {"answer": bank_check_result}
 
         question = self.detect_pii(input)
-        chat_history = self.format_chat_history()
+        
         chain = self.create_chains()
-        response = chain.invoke({
-            "chat_history": chat_history,
-            "input": question
-        })
+        response = chain.invoke({"input": question}, config)
 
         self.update_chat_history(question, response.get("answer"))
         return response
